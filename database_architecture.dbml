@@ -1,0 +1,99 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Agents {
+  agent_id integer [primary key]
+  emial varchar
+  is_admin bool
+  username varchar // Agent_name
+  password varchar
+  photo varchar // url sau ceva
+}
+
+Table Calls {
+  call_id integer [primary key]
+  agent_id integer
+  creation_date timestamp
+}
+
+Table Clients {
+  client_id integer [primary key]
+  email varchar
+  client_name varchar
+  phone varchar
+  industry varchar
+  first_contacted timestamp
+  description varchar
+  agent_id integer
+  contract_url varchar // url (S3, Azure Blob, GCS)
+  list_id integer
+}
+
+Table Lists {
+  list_id integer [primary key]
+  header_text varchar
+  position integer
+  header_color varchar // cod Hex
+}
+
+Table Services {
+  service_id integer [primary key]
+  status_text varchar
+  package_id integer
+}
+
+Table Packages {
+  package_id integer [primary key]
+  status_text varchar
+  contract_id integer
+}
+
+Table Contracts {
+  contract_id integer [primary key]
+  status_text varchar
+  package_id integer
+  client_id integer
+  agent_id integer
+  maintanance_sum integer // de aici se ia comisionul
+  implementation_sum integer // de aici se ia comisionul
+  contract_date timestamp
+  implementation_date timestamp
+  comision float //
+}
+
+// legaturi intre 
+Table Churns {
+  churn_id integer
+  leave_date timestamp // data la care s-a semnat contractul
+  leaving_reason varchar // can be null
+  document varchar // url spre documentul produs de agent
+}
+
+Table Upsells {
+  upsell_id integer
+  maintanance_sum integer // de aici se ia comisionul
+  implementation_sum integer // de aici se ia comisionul
+  new_contract_date timestamp
+  implementation_date timestamp
+  
+}
+
+Table Appointments {
+  app_id integer
+}
+
+Table AgentStants {
+  stat_id integer
+}
+
+Ref: Agents.agent_id < Calls.agent_id
+Ref: Agents.agent_id < Clients.agent_id
+Ref: Packages.package_id < Services.package_id
+Ref: Contracts.contract_id < Packages.contract_id
+Ref: Clients.client_id < Contracts.client_id
+Ref: Agents.agent_id < Contracts.agent_id
+Ref: Lists.list_id < Clients.list_id
+
+Ref: AgentStants.stat_id - Agents.agent_id
+Ref: Churns.churn_id - Clients.client_id
+Ref: Upsells.upsell_id - Clients.client_id
