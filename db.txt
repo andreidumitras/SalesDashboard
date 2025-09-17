@@ -1,0 +1,137 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Agents {
+  agent_id integer [primary key]
+  email varchar
+  is_admin bool
+  username varchar // Agent_name
+  password varchar
+  photo varchar // url sau ceva
+}
+
+Table Calls {
+  call_id integer [primary key]
+  agent_id integer
+  creation_date timestamp
+}
+
+Table Clients {
+  client_id integer [primary key]
+  email varchar
+  client_name varchar
+  phone varchar
+  industry varchar
+  first_contacted timestamp
+  description varchar
+  agent_id integer
+  contract_url varchar // url (S3, Azure Blob, GCS)
+  list_id integer
+  status_id integer // statusul tabelului in coloana
+}
+
+Table Lists {
+  list_id integer [primary key]
+  header_text varchar
+  position integer
+  header_color varchar // cod Hex
+  created_at timestamp
+  updated_at timestamp
+}
+Table Status {
+  status_id integer [primary key]
+  name varchar 
+  description varchar
+}
+
+Table Services {
+  service_id integer [primary key]
+  status_text varchar
+  package_id integer
+}
+
+Table Packages {
+  package_id integer [primary key]
+  status_text varchar
+  contract_id integer
+}
+
+Table Contracts {
+  contract_id integer [primary key]
+  status_text varchar
+  client_id integer
+  agent_id integer
+  maintanance_sum integer // de aici se ia comisionul
+  implementation_sum integer // de aici se ia comisionul
+  contract_date timestamp
+  implementation_date timestamp
+  comision float //
+}
+
+// legaturi intre 
+Table Churns {
+  churn_id integer [primary key]
+  client_id integer
+  leave_date timestamp // data la care s-a semnat contractul
+  leaving_reason varchar // can be null
+  document varchar // url spre documentul produs de agent
+}
+
+Table Upsells {
+  upsell_id integer [primary key]
+  client_id integer
+  maintanance_sum integer // de aici se ia comisionul
+  implementation_sum integer // de aici se ia comisionul
+  new_contract_date timestamp
+  implementation_date timestamp
+  
+}
+
+Table Appointments {
+  app_id integer [primary key]
+  agent_id integer
+  client_id integer
+  status_id integer
+  list_id integer 
+  notes varchar
+  scheduled_date timestamp
+}
+
+Table AgentStats {
+  agentstant_id integer [primary key]
+  agent_id integer
+  period_start date
+  period_end date
+  total_calls integer
+  total_appointments integer
+  total_deals integer
+  commision float
+}
+Table Forecasts {
+  forecast_id integer [primary key]
+  agent_id integer
+  period_start date
+  period_end date
+  projected_deals integer
+  projected_commission float
+
+}
+
+
+Ref: Agents.agent_id < Calls.agent_id
+Ref: Agents.agent_id < Clients.agent_id
+Ref: Packages.package_id < Services.package_id
+Ref: Contracts.contract_id < Packages.contract_id
+Ref: Clients.client_id < Contracts.client_id
+Ref: Agents.agent_id < Contracts.agent_id
+Ref: Lists.list_id < Clients.list_id
+Ref: Status.status_id < Clients.status_id
+Ref: Lists.list_id < Appointments.list_id
+Ref: Status.status_id < Appointments.status_id
+Ref: Clients.client_id < Churns.client_id
+Ref: Clients.client_id < Upsells.client_id
+Ref: Agents.agent_id < AgentStats.agent_id
+Ref: Agents.agent_id < Appointments.agent_id
+Ref: Clients.client_id < Appointments.client_id
+Ref: Agents.agent_id < Forecasts.agent_id
+// Ref: users.id < follows.followed_user_id
