@@ -1,122 +1,122 @@
 CREATE TABLE "Agents" (
   "agent_id" integer PRIMARY KEY,
-  "email" varchar,
-  "role" integer,
-  "username" varchar,
-  "password" varchar,
-  "photo" varchar
+  "email" varchar NOT NULL,
+  "role" integer NOT NULL,
+  "username" varchar NOT NULL,
+  "password" varchar NOT NULL,
+  "photo" varchar NOT NULL
 );
 
 CREATE TABLE "Calls" (
   "call_id" integer PRIMARY KEY,
-  "agent_id" integer,
-  "creation_date" timestamp
+  "agent_id" integer NOT NULL,
+  "creation_date" timestamp NOT NULL
 );
 
 CREATE TABLE "Clients" (
   "client_id" integer PRIMARY KEY,
-  "email" varchar,
-  "client_name" varchar,
-  "phone" varchar,
-  "industry" varchar,
-  "first_contacted" timestamp,
-  "description" varchar,
-  "agent_id" integer,
-  "contract_url" varchar,
-  "list_id" integer,
-  "status_id" integer
+  "email" varchar NOT NULL,
+  "client_name" varchar NOT NULL,
+  "phone" varchar NOT NULL,
+  "industry" varchar NOT NULL,
+  "first_contacted" timestamp NOT NULL,
+  "description" varchar NOT NULL,
+  "agent_id" integer NOT NULL,
+  "contract_url" varchar NOT NULL,
+  "list_id" integer NOT NULL,
+  "status_id" integer NOT NULL
 );
 
 CREATE TABLE "Lists" (
   "list_id" integer PRIMARY KEY,
-  "header_text" varchar,
-  "position" integer,
-  "header_color" varchar
+  "header_text" varchar NOT NULL,
+  "position" integer NOT NULL,
+  "header_color" varchar NOT NULL
 );
 
 CREATE TABLE "ClientListHistory" (
   "history_id" integer PRIMARY KEY,
-  "client_id" integer,
-  "list_id" integer,
-  "created_at" timestamp,
-  "updated_at" timestamp
+  "client_id" integer NOT NULL,
+  "list_id" integer NOT NULL,
+  "created_at" timestamp NOT NULL,
+  "updated_at" timestamp NOT NULL
 );
 
 CREATE TABLE "Status" (
   "status_id" integer PRIMARY KEY,
-  "name" varchar,
-  "description" varchar
+  "name" varchar NOT NULL,
+  "description" varchar NOT NULL
 );
 
 CREATE TABLE "Services" (
   "service_id" integer PRIMARY KEY,
-  "status_text" varchar,
-  "package_id" integer
+  "status_text" varchar NOT NULL,
+  "package_id" integer NOT NULL
 );
 
 CREATE TABLE "Packages" (
   "package_id" integer PRIMARY KEY,
-  "status_text" varchar,
-  "contract_id" integer
+  "status_text" varchar NOT NULL,
+  "contract_id" integer NOT NULL
 );
 
 CREATE TABLE "Contracts" (
   "contract_id" integer PRIMARY KEY,
-  "status_text" varchar,
-  "client_id" integer,
-  "agent_id" integer,
-  "maintanance_sum" integer,
-  "implementation_sum" integer,
-  "contract_date" timestamp,
-  "implementation_date" timestamp,
-  "comision" float
+  "status_text" varchar NOT NULL,
+  "client_id" integer NOT NULL,
+  "agent_id" integer NOT NULL,
+  "maintanance_sum" integer NOT NULL,
+  "implementation_sum" integer NOT NULL,
+  "contract_date" timestamp NOT NULL,
+  "implementation_date" timestamp NOT NULL,
+  "comision" float NOT NULL
 );
 
 CREATE TABLE "Churns" (
   "churn_id" integer PRIMARY KEY,
-  "client_id" integer,
-  "leave_date" timestamp,
-  "leaving_reason" varchar,
-  "document" varchar
+  "client_id" integer NOT NULL,
+  "leave_date" timestamp NOT NULL,
+  "leaving_reason" varchar NOT NULL,
+  "document" varchar NOT NULL
 );
 
 CREATE TABLE "Upsells" (
   "upsell_id" integer PRIMARY KEY,
-  "client_id" integer,
-  "maintanance_sum" integer,
-  "implementation_sum" integer,
-  "new_contract_date" timestamp,
-  "implementation_date" timestamp,
-  "contract_id" integer
+  "client_id" integer NOT NULL,
+  "maintanance_sum" integer NOT NULL,
+  "implementation_sum" integer NOT NULL,
+  "new_contract_date" timestamp NOT NULL,
+  "implementation_date" timestamp NOT NULL,
+  "contract_id" integer NOT NULL
 );
 
 CREATE TABLE "Appointments" (
   "app_id" integer PRIMARY KEY,
-  "agent_id" integer,
-  "client_id" integer,
-  "status_id" integer,
-  "list_id" integer,
-  "notes" varchar,
-  "scheduled_date" timestamp,
-  "remark" varchar
+  "agent_id" integer NOT NULL,
+  "client_id" integer NOT NULL,
+  "status_id" integer NOT NULL,
+  "list_id" integer NOT NULL,
+  "notes" varchar NOT NULL,
+  "scheduled_date" timestamp NOT NULL,
+  "remark" varchar NOT NULL
 );
 
 CREATE TABLE "AgentStats" (
   "agentstant_id" integer PRIMARY KEY,
-  "agent_id" integer,
-  "contract_id" integer,
-  "total_calls" integer,
-  "total_appointments" integer,
-  "total_deals" integer
+  "agent_id" integer NOT NULL,
+  "contract_id" integer NOT NULL,
+  "total_calls" integer NOT NULL,
+  "total_appointments" integer NOT NULL,
+  "total_deals" integer NOT NULL
 );
 
 CREATE TABLE "Forecasts" (
   "forecast_id" integer PRIMARY KEY,
-  "agent_id" integer,
-  "period_start" date,
-  "period_end" date,
-  "projected_deals" integer,
-  "projected_commission" float
+  "agent_id" integer NOT NULL,
+  "period_start" date NOT NULL,
+  "period_end" date NOT NULL,
+  "projected_deals" integer NOT NULL,
+  "projected_commission" float NOT NULL
 );
 
 ALTER TABLE "Calls" ADD FOREIGN KEY ("agent_id") REFERENCES "Agents" ("agent_id");
