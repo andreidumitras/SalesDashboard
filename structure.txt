@@ -1,3 +1,4 @@
+
 src/
  ├─ app/                   # FRONTEND + API HANDLERS (Next.js App Router)
  │  ├─ layout.tsx          # layout global (Sidebar, Header)

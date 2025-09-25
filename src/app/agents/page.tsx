@@ -18,7 +18,8 @@ export default function AgentsPage() {
 
   return (
     <div>
-      <h1>Agents</h1>
+      <h1 className="text-4xl font-bold text-textLight mb-4">Agents</h1>
+      <p className="text-lg text-cardLight">Home sweet home</p>
       <ul>
         {agents.map(agent => (
           <li key={agent.agent_id}>
