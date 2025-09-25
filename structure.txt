@@ -1,0 +1,70 @@
+src/
+ ├─ app/                   # FRONTEND + API HANDLERS (Next.js App Router)
+ │  ├─ layout.tsx          # layout global (Sidebar, Header)
+ │  ├─ page.tsx            # redirect / landing page
+ │  ├─ dashboard/          # dashboard principal
+ │  │   └─ page.tsx
+Expand
+src.txt
+3 KB
+﻿
+src/
+ ├─ app/                   # FRONTEND + API HANDLERS (Next.js App Router)
+ │  ├─ layout.tsx          # layout global (Sidebar, Header)
+ │  ├─ page.tsx            # redirect / landing page
+ │  ├─ dashboard/          # dashboard principal
+ │  │   └─ page.tsx
+ │  ├─ account/            # pagina Account (clients & contracts)
+ │  │   └─ page.tsx
+ │  ├─ clients/            # management clienți
+ │  │   ├─ page.tsx
+ │  │   └─ [id]/page.tsx   # detalii client
+ │  ├─ contracts/          # management contracte
+ │  │   └─ page.tsx
+ │  ├─ api/                # BACKEND (route handlers REST)
+ │  │   ├─ clients/
+ │  │   │   └─ route.ts    # GET, POST
+ │  │   ├─ clients/[id]/route.ts   # GET, PUT, DELETE
+ │  │   ├─ contracts/
+ │  │   │   └─ route.ts
+ │  │   ├─ contracts/[id]/signed-url/route.ts
+ │  │   ├─ agents/
+ │  │   │   └─ route.ts
+ │  │   ├─ appointments/...
+ │  │   ├─ churns/...
+ │  │   ├─ upsells/...
+ │  │   ├─ lists/...
+ │  │   ├─ status/...
+ │  │   ├─ packages/...
+ │  │   ├─ services/...
+ │  │   ├─ agentstats/...
+ │  │   └─ forecasts/...
+ ├─ components/            # UI REUSABIL
+ │  ├─ Layout.tsx
+ │  ├─ Sidebar.tsx
+ │  ├─ Header.tsx
+ │  ├─ ClientsContractsTable.tsx
+ │  └─ ui/                 # carduri, butoane, tabele reutilizabile
+ ├─ lib/                   # INFRASTRUCTURA backend
+ │  ├─ supabase.ts         # inițializare supabase client
+ │  └─ repositories/       # acces DB pe entități
+ │      ├─ agentRepo.ts
+ │      ├─ clientRepo.ts
+ │      ├─ contractRepo.ts
+ │      ├─ callRepo.ts
+ │      ├─ appointmentRepo.ts
+ │      ├─ churnRepo.ts
+ │      ├─ upsellRepo.ts
+ │      ├─ listRepo.ts
+ │      ├─ statusRepo.ts
+ │      ├─ packageRepo.ts
+ │      ├─ serviceRepo.ts
+ │      ├─ agentStatsRepo.ts
+ │      └─ forecastRepo.ts
+ ├─ types/                 # TIPURI (interfaces)
+ │  └─ db.ts
+ ├─ utils/                 # FUNCȚII UTILE
+ │  └─ auth.ts             # helper pentru autentificare
+ ├─ hooks/                 # HOOK-URI front-end (ex: useFetch)
+ │  └─ useFetch.ts
+ └─ styles/                # stiluri globale (tailwind.css)
